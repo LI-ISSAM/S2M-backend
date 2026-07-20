@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: bnpl-settings-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bnpl_settings
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate   # le schéma est géré par Flyway, pas par Hibernate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param
