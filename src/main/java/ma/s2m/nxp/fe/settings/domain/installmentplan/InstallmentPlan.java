@@ -33,11 +33,14 @@ public class InstallmentPlan {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CST_ID", nullable = false)
     private Customer customer;
+    @Column(name = "CST_EMAIL", length = 150, nullable = false, updatable = false)
+    private String customerEmail;
 
     /**
      * Offre d'origine, optionnelle : un plan peut être créé sans offre rattachée
      * (cf. placeholder frontend "Rechercher une offre (optionnel)...").
      */
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OFR_ID")
     private Offer offer;

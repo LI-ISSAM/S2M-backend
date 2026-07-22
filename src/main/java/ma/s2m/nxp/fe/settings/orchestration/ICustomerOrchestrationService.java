@@ -6,7 +6,7 @@ import ma.s2m.nxp.fe.settings.orchestration.impl.CustomersPageResponse;
 
 public interface ICustomerOrchestrationService {
 
-    CustomersPageResponse getAllCustomers(int page, int limit, String name,String email, String subBin);
+    CustomersPageResponse getAllCustomers(int page, int limit, String lastName,String email, String subBin);
 
     CustomerDTO getCustomerById(Long id) throws BusinessException;
 

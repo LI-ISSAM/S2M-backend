@@ -8,7 +8,6 @@ public class CustomerInstallmentSpecifications {
 
     private static final String CUSTOMER = "customer";
     private static final String FULL_NAME = "fullName";
-    private static final String CONTACT = "contact";
     private static final String EMAIL = "email";
     private static final String STATUS = "status";
 
@@ -25,7 +24,7 @@ public class CustomerInstallmentSpecifications {
     public static Specification<CustomerInstallment> hasCustomerEmailLike(String customerEmail) {
         return (root, query, cb) -> {
             query.distinct(true);
-            return cb.like(cb.lower(root.join(CUSTOMER).get(CONTACT).get(EMAIL)), "%" + customerEmail.toLowerCase() + "%");
+            return cb.like(cb.lower(root.join(CUSTOMER).get(EMAIL)), "%" + customerEmail.toLowerCase() + "%");
         };
     }
 

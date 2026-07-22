@@ -11,7 +11,7 @@ public interface CustomerInstallmentMapper {
 
     @Mapping(target = "customerId", source = "customer.id")
     @Mapping(target = "customerName", source = "customer.fullName")
-    @Mapping(target = "customerEmail", source = "customer.contact.email")
+    @Mapping(target = "customerEmail", source = "customer.email")
     @Mapping(target = "status", expression = "java(installment.getStatus() != null ? installment.getStatus().name() : null)")
     CustomerInstallmentDTO toDTO(CustomerInstallment installment);
 

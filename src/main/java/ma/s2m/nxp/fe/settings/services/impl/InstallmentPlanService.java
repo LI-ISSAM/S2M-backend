@@ -79,6 +79,7 @@ public class InstallmentPlanService implements IInstallmentPlanService {
         Offer offer = resolveOfferIfPresent(offerId);
 
         plan.setCustomer(customer);
+        plan.setCustomerEmail(customer.getEmail());
         plan.setOffer(offer);
         plan.setInstallments(generateSchedule(plan));
 
@@ -98,6 +99,7 @@ public class InstallmentPlanService implements IInstallmentPlanService {
 
         existing.setCustomer(customer);
         existing.setOffer(offer);
+        existing.setCustomerEmail(customer.getEmail());
         existing.setTotalAmount(newData.getTotalAmount());
         existing.setNumberOfInstallments(newData.getNumberOfInstallments());
         existing.setStartDate(newData.getStartDate());

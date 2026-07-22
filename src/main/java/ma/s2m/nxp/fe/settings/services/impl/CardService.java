@@ -38,7 +38,8 @@ public class CardService implements ICardService {
     @Override
     @Transactional(readOnly = true)
     public Page<Card> getAllCards(Pageable pageable, String cardNumber, String customerName) {
-        Specification<Card> spec = (root, query, cb) -> cb.conjunction();
+        Specification<Card> spec  = (root, query, cb) -> cb.conjunction();
+
         if (cardNumber != null && !cardNumber.isBlank()) {
             spec = spec.and(CardSpecifications.hasCardNumberLike(cardNumber));
         }
@@ -93,6 +94,15 @@ public class CardService implements ICardService {
         existing.setStatus(newData.getStatus());
         existing.setExpiryDate(newData.getExpiryDate());
         existing.setBranch(newData.getBranch());
+        existing.setCustomerData(newData.getCustomerData());
+        existing.setCardInfo(newData.getCardInfo());
+        existing.setAdditionalData(newData.getAdditionalData());
+        existing.setCommission(newData.getCommission());
+        existing.setCardFees(newData.getCardFees());
+        existing.setReplacementData(newData.getReplacementData());
+        existing.setRenewData(newData.getRenewData());
+        existing.setRecalculPin(newData.getRecalculPin());
+        existing.setPersonalizationData(newData.getPersonalizationData());
 
         log.info("Updating card id={}", id);
         return cardRepository.save(existing);

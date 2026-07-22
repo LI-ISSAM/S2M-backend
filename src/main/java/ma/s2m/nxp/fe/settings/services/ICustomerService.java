@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ICustomerService {
 
-    Page<Customer> getAllCustomers(Pageable pageable, String fullName , String email);
+    Page<Customer> getAllCustomers(Pageable pageable, String lastName,String email );
 
     Optional<Customer> getCustomerById(Long id);
 

@@ -28,11 +28,11 @@ public class CustomerController {
     public ResponseEntity<Object> getAllCustomers(
             @RequestParam(value = "_page", defaultValue = "1") int page,
             @RequestParam(value = "_limit", defaultValue = "4") int limit,
-            @RequestParam(value = "name_like", required = false) String name,
+            @RequestParam(value = "lastName_like", required = false) String lastName,
             @RequestParam(value = "email_like", required = false) String email,
             @RequestParam(value = "subBin", required = false) String subBin) {
 
-        CustomersPageResponse result = customerOrchestrationService.getAllCustomers(page, limit, name,email, subBin);
+        CustomersPageResponse result = customerOrchestrationService.getAllCustomers(page, limit, lastName,email, subBin);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Total-Count", String.valueOf(result.getTotalElements()));

@@ -27,7 +27,7 @@ public class InstallmentPlanDTO {
     private String customerName;
 
     private Long offerId; // optionnel
-
+    private String customerEmail;
     private String offerName;
 
     @NotNull(message = "Total Amount is required")

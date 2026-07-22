@@ -65,6 +65,33 @@ public class Card {
     @Column(name = "CRD_BRANCH", length = 100)
     private String branch;
 
+    @Embedded
+    private CustomerData customerData;
+
+    @Embedded
+    private CardInfo cardInfo;
+
+    @Embedded
+    private AdditionalData additionalData;
+
+    @Embedded
+    private Commission commission;
+
+    @Embedded
+    private CardFees cardFees;
+
+    @Embedded
+    private ReplacementData replacementData;
+
+    @Embedded
+    private RenewData renewData;
+
+    @Embedded
+    private RecalculPin recalculPin;
+
+    @Embedded
+    private PersonalizationData personalizationData;
+
     @Column(name = "CREATED_AT", updatable = false)
     private java.time.Instant createdAt;
 

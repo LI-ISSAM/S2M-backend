@@ -33,7 +33,7 @@ public class MerchantService implements IMerchantService {
     @Override
     @Transactional(readOnly = true)
     public Page<Merchant> getAllMerchants(Pageable pageable, String name, String reference, Long institutionId) {
-        Specification<Merchant> spec =(root, query, cb) -> cb.conjunction();
+        Specification<Merchant> spec = (root, query, cb) -> cb.conjunction();
 
         if (name != null && !name.isBlank()) {
             spec = spec.and(MerchantSpecifications.hasNameLike(name));
@@ -62,11 +62,6 @@ public class MerchantService implements IMerchantService {
             throw new BusinessException("MER_001",
                     "A merchant with this reference already exists", HttpStatus.CONFLICT);
         }
-        if(merchantRepository.existsByMccCode(merchant.getMccCode())){
-            throw new BusinessException("MER_001",
-                    "A merchant with this code already exists", HttpStatus.CONFLICT);
-
-        }
 
         merchant.setInstitution(institution);
         log.info("Creating merchant name={} reference={} for institutionId={}",
@@ -92,6 +87,76 @@ public class MerchantService implements IMerchantService {
         existing.setInstitution(institution);
         existing.setType(newData.getType());
         existing.setStatus(newData.getStatus());
+
+        // Merchant Data
+        existing.setMerchantId(newData.getMerchantId());
+        existing.setCorporateName(newData.getCorporateName());
+        existing.setDbaName(newData.getDbaName());
+        existing.setCity(newData.getCity());
+        existing.setBranch(newData.getBranch());
+        existing.setBank(newData.getBank());
+        existing.setIdentityFile(newData.getIdentityFile());
+
+        // Merchant Information
+        existing.setCategory(newData.getCategory());
+        existing.setParentGroup(newData.getParentGroup());
+        existing.setSolvability(newData.getSolvability());
+        existing.setBusinessType(newData.getBusinessType());
+        existing.setContractNumber(newData.getContractNumber());
+        existing.setSignatureDate(newData.getSignatureDate());
+        existing.setBusinessCreationDate(newData.getBusinessCreationDate());
+        existing.setLatePaymentDate(newData.getLatePaymentDate());
+        existing.setStatusDate(newData.getStatusDate());
+        existing.setOppositionStatus(newData.getOppositionStatus());
+
+        // Merchant Identity
+        existing.setLicence(newData.getLicence());
+        existing.setSiretNumber(newData.getSiretNumber());
+        existing.setFiscalIdentityNumber(newData.getFiscalIdentityNumber());
+        existing.setCommercialRegisterNumber(newData.getCommercialRegisterNumber());
+        existing.setSocialSecurityNumber(newData.getSocialSecurityNumber());
+        existing.setCapital(newData.getCapital());
+
+        // Merchant Parameters
+        existing.setMccGroup(newData.getMccGroup());
+        existing.setMerchantGroup(newData.getMerchantGroup());
+        existing.setMerchantProgram(newData.getMerchantProgram());
+        existing.setRiskManagementGroup(newData.getRiskManagementGroup());
+        existing.setPaymentMode(newData.getPaymentMode());
+        existing.setPeriodicity(newData.getPeriodicity());
+        existing.setCheckbookName(newData.getCheckbookName());
+        existing.setAllAccount(newData.getAllAccount());
+        existing.setDsDecision(newData.getDsDecision());
+        existing.setDsChallenge(newData.getDsChallenge());
+
+        // Merchant Currency
+        existing.setDefaultCurrency(newData.getDefaultCurrency());
+
+        // Account Routing (valeurs par défaut)
+        existing.setDefaultMxpAccount(newData.getDefaultMxpAccount());
+        existing.setDefaultBankAccount(newData.getDefaultBankAccount());
+
+        // Merchant Statement
+        existing.setFrequency(newData.getFrequency());
+        existing.setPeriod(newData.getPeriod());
+        existing.setSupport(newData.getSupport());
+        existing.setLastStatementDate(newData.getLastStatementDate());
+
+        // Tableaux : remplacement intégral du contenu
+        existing.getOwners().clear();
+        existing.getOwners().addAll(newData.getOwners());
+        existing.getCurrencySupported().clear();
+        existing.getCurrencySupported().addAll(newData.getCurrencySupported());
+        existing.getAccounts().clear();
+        existing.getAccounts().addAll(newData.getAccounts());
+        existing.getAccountRoutings().clear();
+        existing.getAccountRoutings().addAll(newData.getAccountRoutings());
+        existing.getMembershipFees().clear();
+        existing.getMembershipFees().addAll(newData.getMembershipFees());
+        existing.getCommissions().clear();
+        existing.getCommissions().addAll(newData.getCommissions());
+        existing.getAddresses().clear();
+        existing.getAddresses().addAll(newData.getAddresses());
 
         log.info("Updating merchant id={}", id);
         return merchantRepository.save(existing);

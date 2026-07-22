@@ -8,7 +8,7 @@ public class CustomerSpecifications {
 
     private static final String FULL_NAME = "fullName";
     private static final String SUB_BIN = "subBin";
-    private static final String CONTACT ="contact";
+    private static final String LAST_NAME ="lastName";
     private static final String EMAIL ="email";
 
     private CustomerSpecifications() {
@@ -17,9 +17,16 @@ public class CustomerSpecifications {
     public static Specification<Customer> hasFullNameLike(String fullName) {
         return (root, query, cb) ->
                 cb.like(cb.lower(root.get(FULL_NAME)), "%" + fullName.toLowerCase() + "%");
-    }   public static Specification<Customer> hasEmailLike(String email) {
+    }
+    public static Specification<Customer> hasEmailLike(String email) {
         return (root, query, cb) ->
-                cb.like(cb.lower(root.get(CONTACT).get(EMAIL)), "%" + email.toLowerCase() + "%");
+                cb.like(cb.lower(root.get(EMAIL)), "%" + email.toLowerCase() + "%");
+    }
+    public static Specification<Customer> hasLastNameLike(String lastName){
+        return (root, query, cb) ->
+
+                cb.like(cb.lower(root.get(LAST_NAME)), "%" + lastName.toLowerCase() + "%");
+
     }
 
     public static Specification<Customer> hasSubBin(SubBin subBin) {

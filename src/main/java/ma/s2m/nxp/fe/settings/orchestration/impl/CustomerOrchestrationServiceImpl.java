@@ -27,11 +27,11 @@ public class CustomerOrchestrationServiceImpl implements ICustomerOrchestrationS
     }
 
     @Override
-    public CustomersPageResponse getAllCustomers(int page, int limit, String name,String email, String subBin) {
+    public CustomersPageResponse getAllCustomers(int page, int limit, String lastName,String email, String subBin) {
         int zeroBasedPage = Math.max(page - 1, 0);
         PageRequest pageRequest = PageRequest.of(zeroBasedPage, limit, Sort.by(Sort.Direction.ASC, "fullName"));
 
-        Page<Customer> result = customerService.getAllCustomers(pageRequest, name,email);
+        Page<Customer> result = customerService.getAllCustomers(pageRequest, lastName,email);
 
         List<CustomerDTO> content = result.getContent().stream()
                 .map(customerMapper::toDTO)

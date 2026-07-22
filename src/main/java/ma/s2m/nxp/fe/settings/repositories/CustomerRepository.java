@@ -9,9 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface CustomerRepository extends JpaRepository<Customer, Long>,
         JpaSpecificationExecutor<Customer> {
 
-    boolean existsByContact_EmailIgnoreCase(String email);
-
-    boolean existsByContact_EmailIgnoreCaseAndIdNot(String email, Long id);
-
+    boolean existsByEmailIgnoreCase(String email);
+    boolean existsByLastNameIgnoreCase(String email);
+    boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
     boolean existsByCustomerId(String customerId);
 }

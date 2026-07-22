@@ -54,4 +54,24 @@ public class CardDTO {
      * sur CardDetails.vue (card.creationDate).
      */
     private LocalDate creationDate;
+
+    // ---------- Groupes étendus (tous optionnels) ----------
+
+    private CustomerDataDTO customerData;
+
+    private CardInfoDTO cardInfo;
+
+    private AdditionalDataDTO additionalData;
+
+    private CommissionDTO commission;
+
+    private CardFeesDTO cardFees;
+
+    private ReplacementDataDTO replacementData;
+
+    private RenewDataDTO renewData;
+
+    private RecalculPinDTO recalculPin;
+
+    private PersonalizationDataDTO personalizationData;
 }

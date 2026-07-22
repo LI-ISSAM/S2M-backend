@@ -77,7 +77,7 @@ public class SubscriptionService implements ISubscriptionService {
                 .orElseThrow(() -> new BusinessException("SUB_004", "Program not found", HttpStatus.NOT_FOUND));
 
         subscription.setCustomer(customer);
-        subscription.setCustomerEmail(customer.getContact()!=null ? customer.getContact().getEmail() : null);
+        subscription.setCustomerEmail(customer.getEmail());
         subscription.setProgram(program);
         subscription.setOffer(resolveOffer(offerId));
         subscription.setSubscriptionId(generateUniqueSubscriptionId());
@@ -99,7 +99,7 @@ public class SubscriptionService implements ISubscriptionService {
                 .orElseThrow(() -> new BusinessException("SUB_004", "Program not found", HttpStatus.NOT_FOUND));
 
         existing.setCustomer(customer);
-        existing.setCustomerEmail(customer.getContact()!=null ? customer.getContact().getEmail() : null);
+        existing.setCustomerEmail(customer.getEmail());
         existing.setProgram(program);
         existing.setOffer(resolveOffer(offerId));
         existing.setSubscriptionDate(newData.getSubscriptionDate());

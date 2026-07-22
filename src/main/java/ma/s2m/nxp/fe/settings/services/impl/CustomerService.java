@@ -43,13 +43,13 @@ public class CustomerService implements ICustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Customer> getAllCustomers(Pageable pageable, String fullName, String email) {
-        Specification<Customer> spec = spec = (root, query, cb) -> cb.conjunction();
+    public Page<Customer> getAllCustomers(Pageable pageable, String lastName , String email) {
+        Specification<Customer> spec  = (root, query, cb) -> cb.conjunction();
 
-        if (fullName != null && !fullName.isBlank()) {
-            spec = spec.and(CustomerSpecifications.hasFullNameLike(fullName));
+        if (lastName != null && !lastName.isBlank()) {
+            spec = spec.and(CustomerSpecifications.hasFullNameLike(lastName));
         }
-        if(email!=null && !email.isBlank()){
+        if (email != null && !email.isBlank()) {
             spec = spec.and(CustomerSpecifications.hasEmailLike(email));
         }
 
@@ -64,7 +64,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Customer createCustomer(Customer customer) throws BusinessException {
-        if (customerRepository.existsByContact_EmailIgnoreCase(customer.getContact().getEmail())) {
+        if (customerRepository.existsByEmailIgnoreCase(customer.getEmail())) {
             throw new BusinessException("CST_001",
                     "A customer with this email already exists", HttpStatus.CONFLICT);
         }
@@ -79,17 +79,78 @@ public class CustomerService implements ICustomerService {
         Customer existing = customerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("CST_002", "Customer not found", HttpStatus.NOT_FOUND));
 
-        if (customerRepository.existsByContact_EmailIgnoreCaseAndIdNot(newData.getContact().getEmail(), id)) {
+        if (customerRepository.existsByEmailIgnoreCaseAndIdNot(newData.getEmail(), id)) {
             throw new BusinessException("CST_001",
                     "A customer with this email already exists", HttpStatus.CONFLICT);
         }
 
-        existing.setFullName(newData.getFullName());
-        existing.setAge(newData.getAge());
-        existing.setSalary(newData.getSalary());
+        // 1. Customer Data
+        existing.setBank(newData.getBank());
+        existing.setBranch(newData.getBranch());
+        existing.setClientId(newData.getClientId());
+        existing.setVipCategory(newData.getVipCategory());
+        existing.setTitle(newData.getTitle());
+        existing.setFirstName(newData.getFirstName());
+        existing.setMiddleName(newData.getMiddleName());
+        existing.setLastName(newData.getLastName());
+        existing.setBirthDate(newData.getBirthDate());
+        existing.setBirthPlace(newData.getBirthPlace());
+        existing.setPrimaryIdType(newData.getPrimaryIdType());
+        existing.setPrimaryId(newData.getPrimaryId());
+        existing.setSecondaryIdType(newData.getSecondaryIdType());
+        existing.setSecondaryId(newData.getSecondaryId());
+        existing.setGender(newData.getGender());
+        existing.setMaritalStatus(newData.getMaritalStatus());
+        existing.setNationality(newData.getNationality());
+        existing.setDependents(newData.getDependents());
+        existing.setPassportExpiryDate(newData.getPassportExpiryDate());
+        existing.setOwnersList(newData.getOwnersList());
+        existing.setCustomerSegment(newData.getCustomerSegment());
+        existing.setCompany(newData.getCompany());
+        existing.setCustomerCurrency(newData.getCustomerCurrency());
         existing.setSubBin(newData.getSubBin());
-        existing.setPhoto(newData.getPhoto());
-        existing.setContact(newData.getContact());
+        existing.setIdentityFile(newData.getIdentityFile());
+
+        // 2. Customer Information
+        existing.setParentClient(newData.getParentClient());
+        existing.setParentRelation(newData.getParentRelation());
+        existing.setCustomerCreationDate(newData.getCustomerCreationDate());
+        existing.setResolvabilityLevel(newData.getResolvabilityLevel());
+        existing.setStatus(newData.getStatus());
+        existing.setStatusDate(newData.getStatusDate());
+        existing.setStatusReason(newData.getStatusReason());
+        existing.setDebitCard(newData.getDebitCard());
+        existing.setCreditCard(newData.getCreditCard());
+        existing.setPrepaidCard(newData.getPrepaidCard());
+        existing.setPhoneNumber(newData.getPhoneNumber());
+        existing.setEmail(newData.getEmail());
+
+        // 3. Professional Information
+        existing.setEmployeeCode(newData.getEmployeeCode());
+        existing.setEmployeeName(newData.getEmployeeName());
+        existing.setPosition(newData.getPosition());
+        existing.setGrossIncome(newData.getGrossIncome());
+        existing.setNetIncome(newData.getNetIncome());
+        existing.setSalary(newData.getSalary());
+        existing.setRiskLevel(newData.getRiskLevel());
+
+        // 5. Account (valeurs par défaut)
+        existing.setDefaultMxpAccount(newData.getDefaultMxpAccount());
+        existing.setDefaultBankAccount(newData.getDefaultBankAccount());
+
+        // Tableaux : on remplace intégralement le contenu (orphanRemoval implicite
+        // via @ElementCollection, les anciennes lignes sont supprimées et
+        // recréées à chaque sauvegarde).
+        existing.getAddresses().clear();
+        existing.getAddresses().addAll(newData.getAddresses());
+        existing.getAccounts().clear();
+        existing.getAccounts().addAll(newData.getAccounts());
+        existing.getCards().clear();
+        existing.getCards().addAll(newData.getCards());
+        existing.getRoutings().clear();
+        existing.getRoutings().addAll(newData.getRoutings());
+        existing.getLinks().clear();
+        existing.getLinks().addAll(newData.getLinks());
         // customerId n'est jamais modifiable après création
 
         log.info("Updating customer id={}", id);
