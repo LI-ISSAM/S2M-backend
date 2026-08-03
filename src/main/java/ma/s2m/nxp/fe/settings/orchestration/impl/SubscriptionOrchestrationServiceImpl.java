@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
-import ma.s2m.nxp.fe.settings.DTO.subscription.SubscriptionDTO;
+import ma.s2m.nxp.fe.settings.dto.subscription.SubscriptionDTO;
 import ma.s2m.nxp.fe.settings.domain.subscription.Subscription;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.SubscriptionMapper;
@@ -8,6 +8,7 @@ import ma.s2m.nxp.fe.settings.orchestration.ISubscriptionOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.ISubscriptionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,13 @@ public class SubscriptionOrchestrationServiceImpl implements ISubscriptionOrches
                 .toList();
 
         return new SubscriptionsPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<SubscriptionDTO> getAllSubscriptionsForExport(String customerEmail){
+        Page<Subscription> result = subscriptionService.getAllSubscriptions(Pageable.unpaged(),customerEmail);
+        return result.getContent().stream()
+                .map(subscriptionMapper::toDTO)
+                .toList();
     }
 
     @Override

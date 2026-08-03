@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
-import ma.s2m.nxp.fe.settings.Enums.SubBin;
+import ma.s2m.nxp.fe.settings.enums.SubBin;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CustomerSpecifications {

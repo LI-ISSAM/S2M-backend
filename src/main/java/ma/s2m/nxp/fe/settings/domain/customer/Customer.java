@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.SubBin;
+import ma.s2m.nxp.fe.settings.enums.SubBin;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -194,8 +194,7 @@ public class Customer {
 
     @Column(name = "CST_NET_INCOME")
     private BigDecimal netIncome;
-    @Column(name = "CST_SALARY")
-    private BigDecimal salary;
+
 
     @Column(name = "CST_RISK_LEVEL", length = 30)
     private String riskLevel;

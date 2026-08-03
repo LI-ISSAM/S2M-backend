@@ -1,12 +1,16 @@
 package ma.s2m.nxp.fe.settings.orchestration;
 
-import ma.s2m.nxp.fe.settings.DTO.freezinginquiry.FreezingInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.freezing_inquiry.FreezingInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.impl.FreezingInquiriesPageResponse;
+
+import java.util.List;
 
 public interface IFreezingInquiryOrchestrationService {
 
     FreezingInquiriesPageResponse getAllFreezingInquiries(int page, int limit, String cardNumber, String rnn);
+
+    List<FreezingInquiryDTO> getAllFreezingInquiriesForExport(String cardNumber , String rnn);
 
     FreezingInquiryDTO getFreezingInquiryById(Long id) throws BusinessException;
 

@@ -2,9 +2,9 @@ package ma.s2m.nxp.fe.settings.domain.program;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.Channel;
-import ma.s2m.nxp.fe.settings.Enums.ProgramStatus;
-import ma.s2m.nxp.fe.settings.Enums.ProgramType;
+import ma.s2m.nxp.fe.settings.enums.Channel;
+import ma.s2m.nxp.fe.settings.enums.ProgramStatus;
+import ma.s2m.nxp.fe.settings.enums.ProgramType;
 import ma.s2m.nxp.fe.settings.domain.member.Institution;
 
 import java.util.HashSet;

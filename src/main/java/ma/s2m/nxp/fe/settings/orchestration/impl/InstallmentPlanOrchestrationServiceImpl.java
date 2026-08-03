@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.DTO.installmentplan.InstallmentPlanDTO;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.dto.installment_plan.InstallmentPlanDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.InstallmentPlanMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IInstallmentPlanOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IInstallmentPlanService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,15 @@ public class InstallmentPlanOrchestrationServiceImpl implements IInstallmentPlan
                 .toList();
 
         return new InstallmentPlansPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<InstallmentPlanDTO> getAllInstallmentPlansForExport(String customerName,
+                                                                    String offerName, Long customerId, Long offerId) {
+        Page<InstallmentPlan> result = installmentPlanService.getAllInstallmentPlans(Pageable.unpaged(),customerName,offerName,customerId,offerId);
+        return result.getContent().stream()
+                .map(installmentPlanMapper::toDTO)
+                .toList();
+
     }
 
     @Override

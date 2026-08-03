@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.rescheduleinquiry.RescheduleInquiry;
-import ma.s2m.nxp.fe.settings.DTO.rescheduleinquiry.RescheduleInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.reschedule_inquiry.RescheduleInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.RescheduleInquiryMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IRescheduleInquiryOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IRescheduleInquiryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,13 @@ public class RescheduleInquiryOrchestrationServiceImpl implements IRescheduleInq
                 .toList();
 
         return new RescheduleInquiriesPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<RescheduleInquiryDTO> getAllRescheduleInquiriesForExport( String cardNumber, String rnn) {
+        Page<RescheduleInquiry> result = rescheduleInquiryService.getAllRescheduleInquiries(Pageable.unpaged(),cardNumber,rnn);
+        return result.getContent().stream()
+                .map(rescheduleInquiryMapper::toDTO)
+                .toList();
     }
 
     @Override

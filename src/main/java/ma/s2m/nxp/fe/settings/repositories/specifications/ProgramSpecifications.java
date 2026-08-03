@@ -1,8 +1,8 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.program.Program;
-import ma.s2m.nxp.fe.settings.Enums.ProgramStatus;
-import ma.s2m.nxp.fe.settings.Enums.ProgramType;
+import ma.s2m.nxp.fe.settings.enums.ProgramStatus;
+import ma.s2m.nxp.fe.settings.enums.ProgramType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ProgramSpecifications {

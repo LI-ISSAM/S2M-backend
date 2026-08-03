@@ -2,8 +2,8 @@ package ma.s2m.nxp.fe.settings.domain.member;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.InstitutionStatus;
-import ma.s2m.nxp.fe.settings.Enums.InstitutionType;
+import ma.s2m.nxp.fe.settings.enums.InstitutionStatus;
+import ma.s2m.nxp.fe.settings.enums.InstitutionType;
 
 import java.time.LocalDate;
 import java.util.HashSet;

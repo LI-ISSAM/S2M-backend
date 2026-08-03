@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.services;
 
-import ma.s2m.nxp.fe.settings.domain.forceclosureinquiry.ForceClosureInquiry;
+import ma.s2m.nxp.fe.settings.domain.force_closure_inquiry.ForceClosureInquiry;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

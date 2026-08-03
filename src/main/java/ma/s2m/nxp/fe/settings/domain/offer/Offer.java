@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.domain.offer;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.OfferStatus;
+import ma.s2m.nxp.fe.settings.enums.OfferStatus;
 import ma.s2m.nxp.fe.settings.domain.program.Program;
 
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import jakarta.persistence.criteria.Join;
-import ma.s2m.nxp.fe.settings.Enums.SubscriptionStatus;
+import ma.s2m.nxp.fe.settings.enums.SubscriptionStatus;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.subscription.Subscription;
 import org.springframework.data.jpa.domain.Specification;

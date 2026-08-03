@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
-import ma.s2m.nxp.fe.settings.domain.forceclosureinquiry.ForceClosureInquiry;
+import ma.s2m.nxp.fe.settings.domain.force_closure_inquiry.ForceClosureInquiry;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ForceClosureInquirySpecifications {

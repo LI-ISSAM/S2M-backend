@@ -1,11 +1,11 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.Enums.Channel;
+import ma.s2m.nxp.fe.settings.enums.Channel;
 import ma.s2m.nxp.fe.settings.domain.program.*;
-import ma.s2m.nxp.fe.settings.DTO.program.EligibilityDTO;
-import ma.s2m.nxp.fe.settings.DTO.program.FeeDTO;
-import ma.s2m.nxp.fe.settings.DTO.program.LimitDTO;
-import ma.s2m.nxp.fe.settings.DTO.program.ProgramDTO;
+import ma.s2m.nxp.fe.settings.dto.program.EligibilityDTO;
+import ma.s2m.nxp.fe.settings.dto.program.FeeDTO;
+import ma.s2m.nxp.fe.settings.dto.program.LimitDTO;
+import ma.s2m.nxp.fe.settings.dto.program.ProgramDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -58,8 +58,8 @@ public interface ProgramMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "institution", ignore = true) // résolu manuellement via institutionId
-    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.Enums.ProgramType.valueOf(dto.getType()) : null)")
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.ProgramStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.enums.ProgramType.valueOf(dto.getType()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.ProgramStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "eligibility", source = "eligibility")
     @Mapping(target = "allowedSubBins", expression = "java(dto.getEligibility() != null ? dto.getEligibility().getAllowedSubBins() : new java.util.HashSet<>())")
     @Mapping(target = "fee", source = "fee")
@@ -78,7 +78,7 @@ public interface ProgramMapper {
 
     Eligibility toEntity(EligibilityDTO dto);
 
-    @Mapping(target = "feeType", expression = "java(dto.getFeeType() != null ? ma.s2m.nxp.fe.settings.Enums.FeeType.valueOf(dto.getFeeType()) : null)")
+    @Mapping(target = "feeType", expression = "java(dto.getFeeType() != null ? ma.s2m.nxp.fe.settings.enums.FeeType.valueOf(dto.getFeeType()) : null)")
     Fee toEntity(FeeDTO dto);
 
     Limit toEntity(LimitDTO dto);

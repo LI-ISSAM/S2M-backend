@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
 import ma.s2m.nxp.fe.settings.domain.merchant.*;
-import ma.s2m.nxp.fe.settings.DTO.merchant.*;
+import ma.s2m.nxp.fe.settings.dto.merchant.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -29,8 +29,8 @@ public interface MerchantMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "institution", ignore = true) // résolu manuellement via institutionId
-    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.Enums.MerchantType.valueOf(dto.getType()) : null)")
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.MerchantStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.enums.MerchantType.valueOf(dto.getType()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.MerchantStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "businessCreationDate", source = "creationDate")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)

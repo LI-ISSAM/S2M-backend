@@ -1,12 +1,10 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
 import ma.s2m.nxp.fe.settings.domain.card.*;
-import ma.s2m.nxp.fe.settings.DTO.card.*;
+import ma.s2m.nxp.fe.settings.dto.card.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-
-import java.time.ZoneOffset;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CardMapper {
@@ -38,8 +36,8 @@ public interface CardMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "customer", ignore = true) // résolu manuellement via customerId
     @Mapping(target = "program", ignore = true)   // résolu manuellement via programId
-    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.Enums.CardType.valueOf(dto.getType()) : null)")
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.CardStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "type", expression = "java(dto.getType() != null ? ma.s2m.nxp.fe.settings.enums.CardType.valueOf(dto.getType()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.CardStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     Card toEntity(CardDTO dto);

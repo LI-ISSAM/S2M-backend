@@ -17,7 +17,7 @@ public interface CustomerInstallmentMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "customer", ignore = true) // résolu manuellement via customerId
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.CustomerInstallmentStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.CustomerInstallmentStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     CustomerInstallment toEntity(CustomerInstallmentDTO dto);

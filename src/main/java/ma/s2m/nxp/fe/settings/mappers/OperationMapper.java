@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
 import ma.s2m.nxp.fe.settings.domain.operation.Operation;
-import ma.s2m.nxp.fe.settings.DTO.operation.OperationDTO;
+import ma.s2m.nxp.fe.settings.dto.operation.OperationDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

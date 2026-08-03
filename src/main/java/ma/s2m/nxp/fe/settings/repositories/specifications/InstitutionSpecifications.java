@@ -2,8 +2,8 @@ package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.member.Institution;
 import org.springframework.data.jpa.domain.Specification;
-import ma.s2m.nxp.fe.settings.Enums.InstitutionStatus;
-import ma.s2m.nxp.fe.settings.Enums.InstitutionType;
+import ma.s2m.nxp.fe.settings.enums.InstitutionStatus;
+import ma.s2m.nxp.fe.settings.enums.InstitutionType;
 
 
 

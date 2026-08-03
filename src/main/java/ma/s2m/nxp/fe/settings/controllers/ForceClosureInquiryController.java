@@ -1,14 +1,19 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
 import jakarta.validation.Valid;
-import ma.s2m.nxp.fe.settings.dto.forceclosureinquiry.ForceClosureInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.force_closure_inquiry.ForceClosureInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.IForceClosureInquiryOrchestrationService;
 import ma.s2m.nxp.fe.settings.orchestration.impl.ForceClosureInquiriesPageResponse;
+import ma.s2m.nxp.fe.settings.utils.CsvExportUtil;
+import ma.s2m.nxp.fe.settings.utils.PdfExportUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Compatible avec ForceClosureInquiryService.js : _page, _limit,
@@ -64,5 +69,63 @@ public class ForceClosureInquiryController {
     public ResponseEntity<Void> deleteForceClosureInquiry(@PathVariable Long id) throws BusinessException {
         forceClosureInquiryOrchestrationService.deleteForceClosureInquiry(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/export/csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(value = "cardNumber_like", required = false) String cardNumber,
+            @RequestParam(value = "rnn_like", required = false) String rnn) {
+
+        List<ForceClosureInquiryDTO> forceClosureInquiries = forceClosureInquiryOrchestrationService.getAllForceClosureInquiriesForExport(
+                cardNumber,rnn
+        );
+        List<String> headers = List.of("ID","Card Number","RNN","Outstanding Amount","Force Closure Fee");
+        List<String[]> rows = forceClosureInquiries.stream()
+                .map(f->new String[]{
+                        String.valueOf(f.getId()),
+                        f.getCardNumber(),
+                        f.getRnn(),
+                        String.valueOf(f.getOutstandingAmount()),
+                        String.valueOf(f.getForceClosureFee()),
+
+
+                })
+                .toList();
+        byte[] csv = CsvExportUtil.toCsv(headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.parseMediaType("text/csv"));
+        responseHeaders.setContentDispositionFormData("attachment", "forceClosureInquiries.csv");
+
+        return new ResponseEntity<>(csv, responseHeaders, HttpStatus.OK);
+
+    }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam(value = "cardNumber_like", required = false) String cardNumber,
+            @RequestParam(value = "rnn_like", required = false) String rnn) {
+
+        List<ForceClosureInquiryDTO> forceClosureInquiries = forceClosureInquiryOrchestrationService.getAllForceClosureInquiriesForExport(
+                cardNumber,rnn
+        );
+        List<String> headers = List.of("ID","Card Number","RNN","Outstanding Amount","Force Closure Fee");
+        List<String[]> rows = forceClosureInquiries.stream()
+                .map(f->new String[]{
+                        String.valueOf(f.getId()),
+                        f.getCardNumber(),
+                        f.getRnn(),
+                        String.valueOf(f.getOutstandingAmount()),
+                        String.valueOf(f.getForceClosureFee()),
+
+
+                })
+                .toList();
+        byte[] pdf = PdfExportUtil.toPdf("Liste des forceClosureInquiries",headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_PDF);
+        responseHeaders.setContentDispositionFormData("attachment", "pdf.csv");
+
+        return new ResponseEntity<>(pdf, responseHeaders, HttpStatus.OK);
+
     }
 }

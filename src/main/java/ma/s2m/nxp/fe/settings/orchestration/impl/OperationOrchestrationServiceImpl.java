@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.operation.Operation;
-import ma.s2m.nxp.fe.settings.DTO.operation.OperationDTO;
+import ma.s2m.nxp.fe.settings.dto.operation.OperationDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.OperationMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IOperationOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IOperationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,13 @@ public class OperationOrchestrationServiceImpl implements IOperationOrchestratio
                 .toList();
 
         return new OperationsPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+    @Override
+    public List<OperationDTO> getAllOperationsForExport(String reference, String email, String programName) {
+        Page<Operation> result = operationService.getAllOperations(Pageable.unpaged(), reference, email, programName);
+        return result.getContent().stream()
+                .map(operationMapper::toDTO)
+                .toList();
     }
 
     @Override

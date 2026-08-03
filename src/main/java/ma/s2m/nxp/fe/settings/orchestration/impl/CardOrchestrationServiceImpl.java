@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.card.Card;
-import ma.s2m.nxp.fe.settings.DTO.card.CardDTO;
+import ma.s2m.nxp.fe.settings.dto.card.CardDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.CardMapper;
 import ma.s2m.nxp.fe.settings.orchestration.ICardOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.ICardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,13 @@ public class CardOrchestrationServiceImpl implements ICardOrchestrationService {
                 .toList();
 
         return new CardsPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<CardDTO> getAllCardsForExport(String cardNumber , String customerName){
+        Page<Card> result = cardService.getAllCards(Pageable.unpaged(), cardNumber,customerName);
+        return result.getContent().stream()
+                .map(cardMapper::toDTO)
+                .toList();
     }
 
     @Override

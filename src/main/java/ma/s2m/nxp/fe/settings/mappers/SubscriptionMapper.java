@@ -1,9 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.DTO.subscription.EligibilityDTO;
-import ma.s2m.nxp.fe.settings.DTO.subscription.SubscriptionDTO;
-import ma.s2m.nxp.fe.settings.Enums.OnboardingMode;
-import ma.s2m.nxp.fe.settings.Enums.SubscriptionStatus;
+import ma.s2m.nxp.fe.settings.dto.subscription.EligibilityDTO;
+import ma.s2m.nxp.fe.settings.dto.subscription.SubscriptionDTO;
 import ma.s2m.nxp.fe.settings.domain.subscription.Subscription;
 import ma.s2m.nxp.fe.settings.domain.subscription.SubscriptionEligibility;
 import org.mapstruct.Mapper;
@@ -29,8 +27,8 @@ public interface SubscriptionMapper {
     @Mapping(target = "customer", ignore = true)
     @Mapping(target = "program", ignore = true)
     @Mapping(target = "offer", ignore = true)
-    @Mapping(target = "mode", expression = "java(dto.getMode() != null ? ma.s2m.nxp.fe.settings.Enums.OnboardingMode.valueOf(dto.getMode()) : null)")
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.SubscriptionStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "mode", expression = "java(dto.getMode() != null ? ma.s2m.nxp.fe.settings.enums.OnboardingMode.valueOf(dto.getMode()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.SubscriptionStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     Subscription toEntity(SubscriptionDTO dto);

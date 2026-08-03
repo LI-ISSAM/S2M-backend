@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.repositories;
 
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

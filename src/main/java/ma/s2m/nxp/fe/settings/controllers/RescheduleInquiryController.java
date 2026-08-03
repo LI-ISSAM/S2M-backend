@@ -1,14 +1,19 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
 import jakarta.validation.Valid;
-import ma.s2m.nxp.fe.settings.DTO.rescheduleinquiry.RescheduleInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.reschedule_inquiry.RescheduleInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.IRescheduleInquiryOrchestrationService;
 import ma.s2m.nxp.fe.settings.orchestration.impl.RescheduleInquiriesPageResponse;
+import ma.s2m.nxp.fe.settings.utils.CsvExportUtil;
+import ma.s2m.nxp.fe.settings.utils.PdfExportUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Compatible avec RescheduleInquiryService.js : _page, _limit,
@@ -65,4 +70,63 @@ public class RescheduleInquiryController {
         rescheduleInquiryOrchestrationService.deleteRescheduleInquiry(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/export/csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(value = "cardNumber_like", required = false) String cardNumber,
+            @RequestParam(value = "rnn_like", required = false) String rnn) {
+
+        List<RescheduleInquiryDTO> rescheduleInquiries = rescheduleInquiryOrchestrationService.getAllRescheduleInquiriesForExport(
+                cardNumber,rnn
+        );
+        List<String> headers = List.of("ID","Card Number","RNN","Transaction Detail","Reschedule Fee","Outstanding Amount");
+        List<String[]> rows = rescheduleInquiries.stream()
+                .map(r->new String[]{
+                        String.valueOf(r.getId()),
+                        r.getCardNumber(),
+                        r.getRnn(),
+                        r.getTransactionDetail(),
+                        String.valueOf(r.getRescheduleFee()),
+                        String.valueOf(r.getOutstandingAmount()),
+
+                })
+                .toList();
+        byte[] csv = CsvExportUtil.toCsv(headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.parseMediaType("text/csv"));
+        responseHeaders.setContentDispositionFormData("attachment", "rescheduleInquiries.csv");
+
+        return new ResponseEntity<>(csv, responseHeaders, HttpStatus.OK);
+
+    }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam(value = "cardNumber_like", required = false) String cardNumber,
+            @RequestParam(value = "rnn_like", required = false) String rnn) {
+
+        List<RescheduleInquiryDTO> rescheduleInquiries = rescheduleInquiryOrchestrationService.getAllRescheduleInquiriesForExport(
+                cardNumber,rnn
+        );
+        List<String> headers = List.of("ID","Card Number","RNN","Transaction Detail","Reschedule Fee","Outstanding Amount");
+        List<String[]> rows = rescheduleInquiries.stream()
+                .map(r->new String[]{
+                        String.valueOf(r.getId()),
+                        r.getCardNumber(),
+                        r.getRnn(),
+                        r.getTransactionDetail(),
+                        String.valueOf(r.getRescheduleFee()),
+                        String.valueOf(r.getOutstandingAmount()),
+
+                })
+                .toList();
+        byte[] pdf = PdfExportUtil.toPdf("Liste des rescheduleInquiries",headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_PDF);
+        responseHeaders.setContentDispositionFormData("attachment", "pdf.csv");
+
+        return new ResponseEntity<>(pdf, responseHeaders, HttpStatus.OK);
+
+    }
+
 }

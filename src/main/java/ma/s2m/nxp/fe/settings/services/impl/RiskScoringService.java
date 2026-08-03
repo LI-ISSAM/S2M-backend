@@ -2,10 +2,10 @@ package ma.s2m.nxp.fe.settings.services.impl;
 
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.installment.CustomerInstallment;
-import ma.s2m.nxp.fe.settings.Enums.CustomerInstallmentStatus;
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.Enums.InstallmentPlanStatus;
-import ma.s2m.nxp.fe.settings.DTO.risk.CreditRiskScoreDTO;
+import ma.s2m.nxp.fe.settings.enums.CustomerInstallmentStatus;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.enums.InstallmentPlanStatus;
+import ma.s2m.nxp.fe.settings.dto.risk.CreditRiskScoreDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

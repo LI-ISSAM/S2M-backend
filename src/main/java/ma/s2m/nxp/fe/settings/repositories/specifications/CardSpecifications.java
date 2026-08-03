@@ -1,8 +1,8 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.card.Card;
-import ma.s2m.nxp.fe.settings.Enums.CardStatus;
-import ma.s2m.nxp.fe.settings.Enums.CardType;
+import ma.s2m.nxp.fe.settings.enums.CardStatus;
+import ma.s2m.nxp.fe.settings.enums.CardType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CardSpecifications {

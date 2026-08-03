@@ -1,5 +1,6 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
+import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.installment.CustomerInstallment;
 import ma.s2m.nxp.fe.settings.dto.installment.CustomerInstallmentDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
@@ -8,6 +9,7 @@ import ma.s2m.nxp.fe.settings.orchestration.ICustomerInstallmentOrchestrationSer
 import ma.s2m.nxp.fe.settings.services.ICustomerInstallmentService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,18 @@ public class CustomerInstallmentOrchestrationServiceImpl implements ICustomerIns
                 .toList();
 
         return new CustomerInstallmentsPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<CustomerInstallmentDTO> getAllInstallmentsForExport(String customerName,
+                                                                    String customerEmail,
+                                                                    Long customerId
+                                                                    ){
+        Page<CustomerInstallment> result = installmentService.getAllInstallments(Pageable.unpaged(),customerName,customerEmail,
+                customerId
+                );
+        return result.getContent().stream()
+                .map(installmentMapper::toDTO)
+                .toList();
     }
 
     @Override

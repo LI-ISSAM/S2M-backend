@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.services.impl;
 
-import ma.s2m.nxp.fe.settings.Enums.CustomerInstallmentStatus;
-import ma.s2m.nxp.fe.settings.Enums.InstallmentPlanStatus;
+import ma.s2m.nxp.fe.settings.enums.CustomerInstallmentStatus;
+import ma.s2m.nxp.fe.settings.enums.InstallmentPlanStatus;
 import ma.s2m.nxp.fe.settings.repositories.*;
 import org.springframework.stereotype.Component;
 

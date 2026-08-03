@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.services;
 
-import ma.s2m.nxp.fe.settings.domain.freezinginquiry.FreezingInquiry;
+import ma.s2m.nxp.fe.settings.domain.freezing_inquiry.FreezingInquiry;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

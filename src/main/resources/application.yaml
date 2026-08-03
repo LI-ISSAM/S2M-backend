@@ -7,10 +7,17 @@ spring:
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
-
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: llava:7b
+        options:
+          temperature: 0.3
+          num-predict: 512
   jpa:
     hibernate:
-      ddl-auto: validate   # le schéma est géré par Flyway, pas par Hibernate
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -34,3 +41,4 @@ groq:
     key: ${GROQ_API_KEY:}
     model: llama-3.3-70b-versatile
     url: https://api.groq.com/openai/v1/chat/completions
+

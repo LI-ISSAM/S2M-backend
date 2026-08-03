@@ -2,8 +2,8 @@ package ma.s2m.nxp.fe.settings.domain.merchant;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.MerchantStatus;
-import ma.s2m.nxp.fe.settings.Enums.MerchantType;
+import ma.s2m.nxp.fe.settings.enums.MerchantStatus;
+import ma.s2m.nxp.fe.settings.enums.MerchantType;
 import ma.s2m.nxp.fe.settings.domain.member.Institution;
 
 import java.math.BigDecimal;

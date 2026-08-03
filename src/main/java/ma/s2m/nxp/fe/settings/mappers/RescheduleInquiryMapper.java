@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.DTO.rescheduleinquiry.RescheduleInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.reschedule_inquiry.RescheduleInquiryDTO;
 import ma.s2m.nxp.fe.settings.domain.rescheduleinquiry.RescheduleInquiry;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

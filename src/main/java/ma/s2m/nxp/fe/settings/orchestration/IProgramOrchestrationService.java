@@ -1,12 +1,16 @@
 package ma.s2m.nxp.fe.settings.orchestration;
 
-import ma.s2m.nxp.fe.settings.DTO.program.ProgramDTO;
+import ma.s2m.nxp.fe.settings.dto.program.ProgramDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.impl.ProgramsPageResponse;
+
+import java.util.List;
 
 public interface IProgramOrchestrationService {
 
     ProgramsPageResponse getAllPrograms(int page, int limit, String name, Long institutionId);
+
+    List<ProgramDTO> getAllProgramsForExport(String name , Long institutionId);
 
     ProgramDTO getProgramById(Long id) throws BusinessException;
 

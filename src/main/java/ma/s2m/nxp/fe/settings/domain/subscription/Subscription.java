@@ -2,8 +2,8 @@ package ma.s2m.nxp.fe.settings.domain.subscription;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.OnboardingMode;
-import ma.s2m.nxp.fe.settings.Enums.SubscriptionStatus;
+import ma.s2m.nxp.fe.settings.enums.OnboardingMode;
+import ma.s2m.nxp.fe.settings.enums.SubscriptionStatus;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.offer.Offer;
 import ma.s2m.nxp.fe.settings.domain.program.Program;

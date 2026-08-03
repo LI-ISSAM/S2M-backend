@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ma.s2m.nxp.fe.settings.dto.forceclosureinquiry.ForceClosureInquiryDTO;
+import ma.s2m.nxp.fe.settings.dto.force_closure_inquiry.ForceClosureInquiryDTO;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package ma.s2m.nxp.fe.settings.domain.card;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.CardStatus;
-import ma.s2m.nxp.fe.settings.Enums.CardType;
+import ma.s2m.nxp.fe.settings.enums.CardStatus;
+import ma.s2m.nxp.fe.settings.enums.CardType;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.program.Program;
 

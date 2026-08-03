@@ -1,8 +1,8 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
 import jakarta.validation.Valid;
-import ma.s2m.nxp.fe.settings.DTO.chatbot.ChatbotRequestDTO;
-import ma.s2m.nxp.fe.settings.DTO.chatbot.ChatbotResponseDTO;
+import ma.s2m.nxp.fe.settings.dto.chatbot.ChatbotRequestDTO;
+import ma.s2m.nxp.fe.settings.dto.chatbot.ChatbotResponseDTO;
 import ma.s2m.nxp.fe.settings.services.IChatbotService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ma.s2m.nxp.fe.settings.DTO.institution.InstitutionDTO;
+import ma.s2m.nxp.fe.settings.dto.institution.InstitutionDTO;
 
 import java.util.List;
 

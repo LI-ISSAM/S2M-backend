@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.domain.forceclosureinquiry.ForceClosureInquiry;
-import ma.s2m.nxp.fe.settings.dto.forceclosureinquiry.ForceClosureInquiryDTO;
+import ma.s2m.nxp.fe.settings.domain.force_closure_inquiry.ForceClosureInquiry;
+import ma.s2m.nxp.fe.settings.dto.force_closure_inquiry.ForceClosureInquiryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

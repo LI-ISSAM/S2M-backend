@@ -1,12 +1,16 @@
 package ma.s2m.nxp.fe.settings.orchestration;
 
-import ma.s2m.nxp.fe.settings.DTO.offer.OfferDTO;
+import ma.s2m.nxp.fe.settings.dto.offer.OfferDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.impl.OffersPageResponse;
+
+import java.util.List;
 
 public interface IOfferOrchestrationService {
 
     OffersPageResponse getAllOffers(int page, int limit, String name, Long programId);
+
+    List<OfferDTO> getAllOffersForExport(String name , Long programId);
 
     OfferDTO getOfferById(Long id) throws BusinessException;
 

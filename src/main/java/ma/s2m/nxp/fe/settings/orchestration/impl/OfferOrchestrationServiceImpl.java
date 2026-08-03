@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.offer.Offer;
-import ma.s2m.nxp.fe.settings.DTO.offer.OfferDTO;
+import ma.s2m.nxp.fe.settings.dto.offer.OfferDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.OfferMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IOfferOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IOfferService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,13 @@ public class OfferOrchestrationServiceImpl implements IOfferOrchestrationService
                 .toList();
 
         return new OffersPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<OfferDTO> getAllOffersForExport(String name , Long programId){
+        Page<Offer> result = offerService.getAllOffers(Pageable.unpaged(),name,programId);
+        return result.getContent().stream()
+                .map(offerMapper::toDTO)
+                .toList();
     }
 
     @Override

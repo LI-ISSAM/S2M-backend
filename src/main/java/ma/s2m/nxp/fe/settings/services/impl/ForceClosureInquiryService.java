@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.s2m.nxp.fe.settings.domain.card.Card;
-import ma.s2m.nxp.fe.settings.domain.forceclosureinquiry.ForceClosureInquiry;
+import ma.s2m.nxp.fe.settings.domain.force_closure_inquiry.ForceClosureInquiry;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.repositories.CardRepository;
 import ma.s2m.nxp.fe.settings.repositories.ForceClosureInquiryRepository;

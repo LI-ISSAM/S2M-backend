@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.offer.Offer;
-import ma.s2m.nxp.fe.settings.Enums.OfferStatus;
+import ma.s2m.nxp.fe.settings.enums.OfferStatus;
 import org.springframework.data.jpa.domain.Specification;
 
 public class OfferSpecifications {

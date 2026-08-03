@@ -1,10 +1,10 @@
 package ma.s2m.nxp.fe.settings.services.impl;
 
-import ma.s2m.nxp.fe.settings.DTO.chatbot.ChatMessageDTO;
-import ma.s2m.nxp.fe.settings.DTO.chatbot.ChatbotRequestDTO;
-import ma.s2m.nxp.fe.settings.DTO.chatbot.ChatbotResponseDTO;
+import ma.s2m.nxp.fe.settings.dto.chatbot.ChatMessageDTO;
+import ma.s2m.nxp.fe.settings.dto.chatbot.ChatbotRequestDTO;
+import ma.s2m.nxp.fe.settings.dto.chatbot.ChatbotResponseDTO;
 import ma.s2m.nxp.fe.settings.services.IChatbotService;
-import ma.s2m.nxp.fe.settings.services.ai.AnthropicClient;
+import ma.s2m.nxp.fe.settings.services.ai.GroqClient;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,10 +24,10 @@ public class ChatbotServiceImpl implements IChatbotService {
     private static final int MAX_TOKENS = 600;
     private static final int MAX_HISTORY_MESSAGES = 10; // évite un prompt qui grossit indéfiniment
 
-    private final AnthropicClient anthropicClient;
+    private final GroqClient anthropicClient;
     private final SystemSnapshotService systemSnapshotService;
 
-    public ChatbotServiceImpl(AnthropicClient anthropicClient, SystemSnapshotService systemSnapshotService) {
+    public ChatbotServiceImpl(GroqClient anthropicClient, SystemSnapshotService systemSnapshotService) {
         this.anthropicClient = anthropicClient;
         this.systemSnapshotService = systemSnapshotService;
     }

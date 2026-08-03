@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.FeeType;
+import ma.s2m.nxp.fe.settings.enums.FeeType;
 
 import java.math.BigDecimal;
 

@@ -2,7 +2,7 @@ package ma.s2m.nxp.fe.settings.domain.installment;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ma.s2m.nxp.fe.settings.Enums.CustomerInstallmentStatus;
+import ma.s2m.nxp.fe.settings.enums.CustomerInstallmentStatus;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 
 import java.math.BigDecimal;

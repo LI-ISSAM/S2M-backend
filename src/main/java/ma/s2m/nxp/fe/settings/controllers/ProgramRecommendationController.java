@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
-import ma.s2m.nxp.fe.settings.DTO.programrecommendation.ProgramRecommendationResponseDTO;
+import ma.s2m.nxp.fe.settings.dto.program_recommendation.ProgramRecommendationResponseDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.services.IProgramRecommendationService;
 import org.springframework.http.ResponseEntity;

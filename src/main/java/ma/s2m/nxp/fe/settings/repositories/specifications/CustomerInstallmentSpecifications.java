@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.installment.CustomerInstallment;
-import ma.s2m.nxp.fe.settings.Enums.CustomerInstallmentStatus;
+import ma.s2m.nxp.fe.settings.enums.CustomerInstallmentStatus;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CustomerInstallmentSpecifications {

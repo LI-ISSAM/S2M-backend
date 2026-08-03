@@ -3,8 +3,8 @@ package ma.s2m.nxp.fe.settings.services.impl;
 import lombok.extern.slf4j.Slf4j;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.program.Program;
-import ma.s2m.nxp.fe.settings.Enums.ProgramStatus;
-import ma.s2m.nxp.fe.settings.DTO.programrecommendation.EligibleProgramDTO;
+import ma.s2m.nxp.fe.settings.enums.ProgramStatus;
+import ma.s2m.nxp.fe.settings.dto.program_recommendation.EligibleProgramDTO;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

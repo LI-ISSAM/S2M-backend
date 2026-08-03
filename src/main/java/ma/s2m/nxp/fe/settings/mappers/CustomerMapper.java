@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
 import ma.s2m.nxp.fe.settings.domain.customer.*;
-import ma.s2m.nxp.fe.settings.DTO.customer.*;
+import ma.s2m.nxp.fe.settings.dto.customer.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

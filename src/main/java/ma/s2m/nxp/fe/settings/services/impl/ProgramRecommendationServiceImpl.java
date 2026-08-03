@@ -3,13 +3,13 @@ package ma.s2m.nxp.fe.settings.services.impl;
 import lombok.extern.slf4j.Slf4j;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.program.Program;
-import ma.s2m.nxp.fe.settings.DTO.programrecommendation.EligibleProgramDTO;
-import ma.s2m.nxp.fe.settings.DTO.programrecommendation.ProgramRecommendationResponseDTO;
+import ma.s2m.nxp.fe.settings.dto.program_recommendation.EligibleProgramDTO;
+import ma.s2m.nxp.fe.settings.dto.program_recommendation.ProgramRecommendationResponseDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.repositories.CustomerRepository;
 import ma.s2m.nxp.fe.settings.repositories.ProgramRepository;
 import ma.s2m.nxp.fe.settings.services.IProgramRecommendationService;
-import ma.s2m.nxp.fe.settings.services.ai.ClaudeExplanationClient;
+import ma.s2m.nxp.fe.settings.services.ai.GroqExplanationClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,11 +27,11 @@ public class ProgramRecommendationServiceImpl implements IProgramRecommendationS
     private final CustomerRepository customerRepository;
     private final ProgramRepository programRepository;
     private final ProgramScoringService programScoringService;
-    private final ClaudeExplanationClient claudeExplanationClient;
+    private final GroqExplanationClient claudeExplanationClient;
 
     public ProgramRecommendationServiceImpl(CustomerRepository customerRepository, ProgramRepository programRepository,
                                             ProgramScoringService programScoringService,
-                                            ClaudeExplanationClient claudeExplanationClient) {
+                                            GroqExplanationClient claudeExplanationClient) {
         this.customerRepository = customerRepository;
         this.programRepository = programRepository;
         this.programScoringService = programScoringService;

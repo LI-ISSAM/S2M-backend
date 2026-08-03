@@ -2,9 +2,9 @@ package ma.s2m.nxp.fe.settings.services.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
-import ma.s2m.nxp.fe.settings.domain.installmentplan.Installment;
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.Enums.InstallmentStatus;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.Installment;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.enums.InstallmentStatus;
 import ma.s2m.nxp.fe.settings.domain.offer.Offer;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.repositories.CustomerRepository;

@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.repositories;
 
-import ma.s2m.nxp.fe.settings.domain.freezinginquiry.FreezingInquiry;
+import ma.s2m.nxp.fe.settings.domain.freezing_inquiry.FreezingInquiry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

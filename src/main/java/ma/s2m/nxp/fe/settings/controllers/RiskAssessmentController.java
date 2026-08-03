@@ -1,6 +1,6 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
-import ma.s2m.nxp.fe.settings.DTO.risk.CreditRiskScoreDTO;
+import ma.s2m.nxp.fe.settings.dto.risk.CreditRiskScoreDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.services.IRiskAssessmentService;
 import org.springframework.http.ResponseEntity;

@@ -1,14 +1,19 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
 import jakarta.validation.Valid;
-import ma.s2m.nxp.fe.settings.DTO.installmentplan.InstallmentPlanDTO;
+import ma.s2m.nxp.fe.settings.dto.installment_plan.InstallmentPlanDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.IInstallmentPlanOrchestrationService;
 import ma.s2m.nxp.fe.settings.orchestration.impl.InstallmentPlansPageResponse;
+import ma.s2m.nxp.fe.settings.utils.CsvExportUtil;
+import ma.s2m.nxp.fe.settings.utils.PdfExportUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/installmentPlans")
@@ -66,5 +71,71 @@ public class InstallmentPlanController {
     public ResponseEntity<Void> deleteInstallmentPlan(@PathVariable Long id) throws BusinessException {
         installmentPlanOrchestrationService.deleteInstallmentPlan(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/export/csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(value = "customerName_like", required = false) String customerName,
+            @RequestParam(value = "offerName_like", required = false) String offerName,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            @RequestParam(value = "offerId", required = false) Long offerId) {
+
+        List<InstallmentPlanDTO> installment_plan = installmentPlanOrchestrationService.getAllInstallmentPlansForExport(
+                customerName,offerName,customerId,offerId
+        );
+        List<String> headers = List.of("ID","Customer","Offer","Total Amount","Installments","Start Date","Status");
+        List<String[]> rows = installment_plan.stream()
+                .map(i->new String[]{
+                        String.valueOf(i.getId()),
+                        i.getCustomerName(),
+                        i.getOfferName(),
+                        String.valueOf(i.getTotalAmount()),
+                        String.valueOf(i.getNumberOfInstallments()),
+                        String.valueOf(i.getStartDate()),
+                        i.getStatus()
+
+
+                })
+                .toList();
+        byte[] csv = CsvExportUtil.toCsv(headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.parseMediaType("text/csv"));
+        responseHeaders.setContentDispositionFormData("attachment", "installment plans.csv");
+
+        return new ResponseEntity<>(csv, responseHeaders, HttpStatus.OK);
+
+    }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam(value = "customerName_like", required = false) String customerName,
+            @RequestParam(value = "offerName_like", required = false) String offerName,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            @RequestParam(value = "offerId", required = false) Long offerId) {
+
+        List<InstallmentPlanDTO> installment_plan = installmentPlanOrchestrationService.getAllInstallmentPlansForExport(
+                customerName,offerName,customerId,offerId
+        );
+        List<String> headers = List.of("ID","Customer","Offer","Total Amount","Installments","Start Date","Status");
+        List<String[]> rows = installment_plan.stream()
+                .map(i->new String[]{
+                        String.valueOf(i.getId()),
+                        i.getCustomerName(),
+                        i.getOfferName(),
+                        String.valueOf(i.getTotalAmount()),
+                        String.valueOf(i.getNumberOfInstallments()),
+                        String.valueOf(i.getStartDate()),
+                        i.getStatus()
+
+
+                })
+                .toList();
+        byte[] pdf = PdfExportUtil.toPdf("Liste des installment plans",headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_PDF);
+        responseHeaders.setContentDispositionFormData("attachment", "pdf.csv");
+
+        return new ResponseEntity<>(pdf, responseHeaders, HttpStatus.OK);
+
     }
 }

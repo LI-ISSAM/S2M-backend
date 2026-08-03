@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.domain.freezinginquiry.FreezingInquiry;
-import ma.s2m.nxp.fe.settings.DTO.freezinginquiry.FreezingInquiryDTO;
+import ma.s2m.nxp.fe.settings.domain.freezing_inquiry.FreezingInquiry;
+import ma.s2m.nxp.fe.settings.dto.freezing_inquiry.FreezingInquiryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

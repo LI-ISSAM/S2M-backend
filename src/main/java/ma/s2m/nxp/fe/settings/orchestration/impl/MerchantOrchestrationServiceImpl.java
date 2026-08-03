@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.merchant.Merchant;
-import ma.s2m.nxp.fe.settings.DTO.merchant.MerchantDTO;
+import ma.s2m.nxp.fe.settings.dto.merchant.MerchantDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.MerchantMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IMerchantOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IMerchantService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,12 @@ public class MerchantOrchestrationServiceImpl implements IMerchantOrchestrationS
                 .toList();
 
         return new MerchantsPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+    public List<MerchantDTO> getAllMerchantsForExport(String name , String reference , Long institutionId){
+        Page<Merchant> result = merchantService.getAllMerchants(Pageable.unpaged(),name,reference,institutionId);
+        return result.getContent().stream()
+                .map(merchantMapper::toDTO)
+                .toList();
     }
 
     @Override

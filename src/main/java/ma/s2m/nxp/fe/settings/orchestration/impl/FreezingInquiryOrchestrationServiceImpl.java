@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
-import ma.s2m.nxp.fe.settings.domain.freezinginquiry.FreezingInquiry;
-import ma.s2m.nxp.fe.settings.DTO.freezinginquiry.FreezingInquiryDTO;
+import ma.s2m.nxp.fe.settings.domain.freezing_inquiry.FreezingInquiry;
+import ma.s2m.nxp.fe.settings.dto.freezing_inquiry.FreezingInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.FreezingInquiryMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IFreezingInquiryOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IFreezingInquiryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,12 @@ public class FreezingInquiryOrchestrationServiceImpl implements IFreezingInquiry
                 .toList();
 
         return new FreezingInquiriesPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+    public List<FreezingInquiryDTO> getAllFreezingInquiriesForExport(String cardNumber,String rnn){
+        Page<FreezingInquiry> result = freezingInquiryService.getAllFreezingInquiries(Pageable.unpaged(),cardNumber,rnn);
+        return result.getContent().stream()
+                .map(freezingInquiryMapper::toDTO)
+                .toList();
     }
 
     @Override

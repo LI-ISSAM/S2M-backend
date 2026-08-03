@@ -131,7 +131,6 @@ public class CustomerService implements ICustomerService {
         existing.setPosition(newData.getPosition());
         existing.setGrossIncome(newData.getGrossIncome());
         existing.setNetIncome(newData.getNetIncome());
-        existing.setSalary(newData.getSalary());
         existing.setRiskLevel(newData.getRiskLevel());
 
         // 5. Account (valeurs par défaut)

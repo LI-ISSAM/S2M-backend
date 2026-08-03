@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import ma.s2m.nxp.fe.settings.domain.offer.Offer;
 import ma.s2m.nxp.fe.settings.domain.offer.OfferFee;
 import ma.s2m.nxp.fe.settings.domain.offer.OfferLimit;
-import ma.s2m.nxp.fe.settings.Enums.Channel;
+import ma.s2m.nxp.fe.settings.enums.Channel;
 import ma.s2m.nxp.fe.settings.domain.program.Program;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.repositories.OfferRepository;

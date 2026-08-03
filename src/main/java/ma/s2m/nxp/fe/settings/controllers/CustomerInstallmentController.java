@@ -5,10 +5,15 @@ import ma.s2m.nxp.fe.settings.dto.installment.CustomerInstallmentDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.ICustomerInstallmentOrchestrationService;
 import ma.s2m.nxp.fe.settings.orchestration.impl.CustomerInstallmentsPageResponse;
+import ma.s2m.nxp.fe.settings.utils.CsvExportUtil;
+import ma.s2m.nxp.fe.settings.utils.PdfExportUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Exposé sur /api/v1/installments pour matcher InstallmentService.js tel quel
@@ -66,5 +71,65 @@ public class CustomerInstallmentController {
     public ResponseEntity<Void> deleteInstallment(@PathVariable Long id) throws BusinessException {
         installmentOrchestrationService.deleteInstallment(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/export/csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(value = "customerName", required = false) String customerName,
+            @RequestParam(value = "customerEmail", required = false) String customerEmail,
+            @RequestParam(value = "customerId", required = false) Long customerId) {
+
+        List<CustomerInstallmentDTO> installments = installmentOrchestrationService.getAllInstallmentsForExport(
+                customerName,customerEmail,customerId
+        );
+        List<String> headers = List.of("ID","Customer","Email","Due Date","Amount","Status");
+        List<String[]> rows = installments.stream()
+                .map(i->new String[]{
+                        String.valueOf(i.getId()),
+                        i.getCustomerName(),
+                        i.getCustomerEmail(),
+                        String.valueOf(i.getDueDate()),
+                        String.valueOf(i.getAmount()),
+                        i.getStatus(),
+
+                })
+                .toList();
+        byte[] csv = CsvExportUtil.toCsv(headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.parseMediaType("text/csv"));
+        responseHeaders.setContentDispositionFormData("attachment", "installments.csv");
+
+        return new ResponseEntity<>(csv, responseHeaders, HttpStatus.OK);
+
+    }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam(value = "customerName", required = false) String customerName,
+            @RequestParam(value = "customerEmail", required = false) String customerEmail,
+            @RequestParam(value = "customerId", required = false) Long customerId) {
+
+        List<CustomerInstallmentDTO> installments = installmentOrchestrationService.getAllInstallmentsForExport(
+                customerName,customerEmail,customerId
+        );
+        List<String> headers = List.of("ID","Customer","Email","Due Date","Amount","Status");
+        List<String[]> rows = installments.stream()
+                .map(i->new String[]{
+                        String.valueOf(i.getId()),
+                        i.getCustomerName(),
+                        i.getCustomerEmail(),
+                        String.valueOf(i.getDueDate()),
+                        String.valueOf(i.getAmount()),
+                        i.getStatus(),
+
+                })
+                .toList();
+        byte[] pdf = PdfExportUtil.toPdf("Liste des installments",headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_PDF);
+        responseHeaders.setContentDispositionFormData("attachment", "pdf.csv");
+
+        return new ResponseEntity<>(pdf, responseHeaders, HttpStatus.OK);
+
     }
 }

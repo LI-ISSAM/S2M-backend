@@ -1,14 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
-import ma.s2m.nxp.fe.settings.DTO.customer.CustomerDTO;
-import ma.s2m.nxp.fe.settings.domain.member.Institution;
+import ma.s2m.nxp.fe.settings.dto.customer.CustomerDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.CustomerMapper;
 import ma.s2m.nxp.fe.settings.orchestration.ICustomerOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.ICustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +38,12 @@ public class CustomerOrchestrationServiceImpl implements ICustomerOrchestrationS
                 .toList();
 
         return new CustomersPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+    public List<CustomerDTO> getAllCustomersForExport(String lastName  ,String email,String subBin){
+        Page<Customer> result = customerService.getAllCustomers(Pageable.unpaged(),lastName,email);
+        return result.getContent().stream()
+                .map(customerMapper::toDTO)
+                .toList();
     }
 
     @Override

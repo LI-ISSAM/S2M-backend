@@ -1,13 +1,17 @@
 package ma.s2m.nxp.fe.settings.orchestration;
 
-import ma.s2m.nxp.fe.settings.DTO.installmentplan.InstallmentPlanDTO;
+import ma.s2m.nxp.fe.settings.dto.installment_plan.InstallmentPlanDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.impl.InstallmentPlansPageResponse;
+
+import java.util.List;
 
 public interface IInstallmentPlanOrchestrationService {
 
     InstallmentPlansPageResponse getAllInstallmentPlans(int page, int limit, String customerName, String offerName,
                                                         Long customerId, Long offerId);
+
+    List<InstallmentPlanDTO> getAllInstallmentPlansForExport(String customerName,String offerName,Long customerId,Long offerId);
 
     InstallmentPlanDTO getInstallmentPlanById(Long id) throws BusinessException;
 

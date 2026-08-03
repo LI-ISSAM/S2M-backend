@@ -1,7 +1,7 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.Enums.InstallmentPlanStatus;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.enums.InstallmentPlanStatus;
 import org.springframework.data.jpa.domain.Specification;
 
 public class InstallmentPlanSpecifications {

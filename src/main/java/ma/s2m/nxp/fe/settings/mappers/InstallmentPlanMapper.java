@@ -1,9 +1,9 @@
 package ma.s2m.nxp.fe.settings.mappers;
 
-import ma.s2m.nxp.fe.settings.domain.installmentplan.Installment;
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.DTO.installmentplan.InstallmentDTO;
-import ma.s2m.nxp.fe.settings.DTO.installmentplan.InstallmentPlanDTO;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.Installment;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.dto.installment_plan.InstallmentDTO;
+import ma.s2m.nxp.fe.settings.dto.installment_plan.InstallmentPlanDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -38,7 +38,7 @@ public interface InstallmentPlanMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "customer", ignore = true) // résolu manuellement via customerId
     @Mapping(target = "offer", ignore = true)     // résolu manuellement via offerId
-    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.Enums.InstallmentPlanStatus.valueOf(dto.getStatus()) : null)")
+    @Mapping(target = "status", expression = "java(dto.getStatus() != null ? ma.s2m.nxp.fe.settings.enums.InstallmentPlanStatus.valueOf(dto.getStatus()) : null)")
     @Mapping(target = "installments", ignore = true) // généré côté service
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)

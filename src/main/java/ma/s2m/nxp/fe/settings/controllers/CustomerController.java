@@ -1,14 +1,19 @@
 package ma.s2m.nxp.fe.settings.controllers;
 
 import jakarta.validation.Valid;
-import ma.s2m.nxp.fe.settings.DTO.customer.CustomerDTO;
+import ma.s2m.nxp.fe.settings.dto.customer.CustomerDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.orchestration.ICustomerOrchestrationService;
 import ma.s2m.nxp.fe.settings.orchestration.impl.CustomersPageResponse;
+import ma.s2m.nxp.fe.settings.utils.CsvExportUtil;
+import ma.s2m.nxp.fe.settings.utils.PdfExportUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -64,5 +69,68 @@ public class CustomerController {
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) throws BusinessException {
         customerOrchestrationService.deleteCustomer(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/export/csv")
+    public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(value = "lastName_like", required = false) String lastName,
+            @RequestParam(value = "email_like", required = false) String email,
+            @RequestParam(value = "subBin", required = false) String subBin) {
+
+        List<CustomerDTO> customers = customerOrchestrationService.getAllCustomersForExport(
+                lastName, email, subBin
+        );
+        List<String> headers = List.of("ID","Full Name","Bank","Branch","Vip Category","Title","Gender","Company");
+        List<String[]> rows = customers.stream()
+                .map(c->new String[]{
+                        String.valueOf(c.getId()),
+                        c.getFullName(),
+                        c.getBank(),
+                        c.getBranch(),
+                        c.getVipCategory(),
+                        c.getTitle(),
+                        c.getGender(),
+                        c.getCompany()
+                })
+                .toList();
+        byte[] csv = CsvExportUtil.toCsv(headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.parseMediaType("text/csv"));
+        responseHeaders.setContentDispositionFormData("attachment", "customers.csv");
+
+        return new ResponseEntity<>(csv, responseHeaders, HttpStatus.OK);
+
+    }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportPdf(
+            @RequestParam(value = "lastName_like", required = false) String lastName,
+            @RequestParam(value = "email_like", required = false) String email,
+            @RequestParam(value = "subBin", required = false) String subBin) {
+
+        List<CustomerDTO> customers = customerOrchestrationService.getAllCustomersForExport(
+                lastName, email, subBin
+        );
+        List<String> headers = List.of("ID","Full Name","Bank","Branch","Vip Category","Title","Gender","Company");
+        List<String[]> rows = customers.stream()
+                .map(c->new String[]{
+                        String.valueOf(c.getId()),
+                        c.getFullName(),
+                        c.getBank(),
+                        c.getBranch(),
+                        c.getVipCategory(),
+                        c.getTitle(),
+                        c.getGender(),
+                        c.getCompany()
+                })
+                .toList();
+        byte[] pdf = PdfExportUtil.toPdf("Liste des customers",headers, rows);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_PDF);
+        responseHeaders.setContentDispositionFormData("attachment", "pdf.csv");
+
+        return new ResponseEntity<>(pdf, responseHeaders, HttpStatus.OK);
+
     }
 }

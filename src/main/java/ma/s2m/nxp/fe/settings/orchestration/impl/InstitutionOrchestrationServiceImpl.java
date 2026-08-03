@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
 import ma.s2m.nxp.fe.settings.domain.member.Institution;
-import ma.s2m.nxp.fe.settings.DTO.institution.InstitutionDTO;
+import ma.s2m.nxp.fe.settings.dto.institution.InstitutionDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.InstitutionMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IInstitutionOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IInstitutionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,13 @@ public class InstitutionOrchestrationServiceImpl implements IInstitutionOrchestr
                 result.getTotalPages(),
                 page
         );
+    }
+
+    public List<InstitutionDTO> getAllInstitutionsForExport(String name , String reference , String tag){
+        Page<Institution> result = institutionService.getAllInstitutions(Pageable.unpaged(),name,reference,tag);
+        return result.getContent().stream()
+                .map(institutionMapper::toDTO)
+                .toList();
     }
 
     @Override

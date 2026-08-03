@@ -1,8 +1,8 @@
 package ma.s2m.nxp.fe.settings.repositories.specifications;
 
 import ma.s2m.nxp.fe.settings.domain.merchant.Merchant;
-import ma.s2m.nxp.fe.settings.Enums.MerchantStatus;
-import ma.s2m.nxp.fe.settings.Enums.MerchantType;
+import ma.s2m.nxp.fe.settings.enums.MerchantStatus;
+import ma.s2m.nxp.fe.settings.enums.MerchantType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class MerchantSpecifications {

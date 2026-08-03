@@ -1,13 +1,14 @@
 package ma.s2m.nxp.fe.settings.orchestration.impl;
 
-import ma.s2m.nxp.fe.settings.domain.forceclosureinquiry.ForceClosureInquiry;
-import ma.s2m.nxp.fe.settings.dto.forceclosureinquiry.ForceClosureInquiryDTO;
+import ma.s2m.nxp.fe.settings.domain.force_closure_inquiry.ForceClosureInquiry;
+import ma.s2m.nxp.fe.settings.dto.force_closure_inquiry.ForceClosureInquiryDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.mappers.ForceClosureInquiryMapper;
 import ma.s2m.nxp.fe.settings.orchestration.IForceClosureInquiryOrchestrationService;
 import ma.s2m.nxp.fe.settings.services.IForceClosureInquiryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,13 @@ public class ForceClosureInquiryOrchestrationServiceImpl implements IForceClosur
                 .toList();
 
         return new ForceClosureInquiriesPageResponse(content, result.getTotalElements(), result.getTotalPages(), page);
+    }
+
+    public List<ForceClosureInquiryDTO> getAllForceClosureInquiriesForExport(String cardNumber,String rnn){
+        Page<ForceClosureInquiry> result = forceClosureInquiryService.getAllForceClosureInquiries(Pageable.unpaged(),cardNumber,rnn);
+        return result.getContent().stream()
+                .map(forceClosureInquiryMapper::toDTO)
+                .toList();
     }
 
     @Override

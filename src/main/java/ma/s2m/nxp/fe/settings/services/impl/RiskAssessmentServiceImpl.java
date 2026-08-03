@@ -2,14 +2,14 @@ package ma.s2m.nxp.fe.settings.services.impl;
 
 import ma.s2m.nxp.fe.settings.domain.customer.Customer;
 import ma.s2m.nxp.fe.settings.domain.installment.CustomerInstallment;
-import ma.s2m.nxp.fe.settings.domain.installmentplan.InstallmentPlan;
-import ma.s2m.nxp.fe.settings.DTO.risk.CreditRiskScoreDTO;
+import ma.s2m.nxp.fe.settings.domain.installment_plan.InstallmentPlan;
+import ma.s2m.nxp.fe.settings.dto.risk.CreditRiskScoreDTO;
 import ma.s2m.nxp.fe.settings.exceptions.BusinessException;
 import ma.s2m.nxp.fe.settings.repositories.CustomerInstallmentRepository;
 import ma.s2m.nxp.fe.settings.repositories.CustomerRepository;
 import ma.s2m.nxp.fe.settings.repositories.InstallmentPlanRepository;
 import ma.s2m.nxp.fe.settings.services.IRiskAssessmentService;
-import ma.s2m.nxp.fe.settings.services.ai.ClaudeRiskExplanationClient;
+import ma.s2m.nxp.fe.settings.services.ai.GroqRiskExplanationClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,13 +24,13 @@ public class RiskAssessmentServiceImpl implements IRiskAssessmentService {
     private final CustomerInstallmentRepository customerInstallmentRepository;
     private final InstallmentPlanRepository installmentPlanRepository;
     private final RiskScoringService riskScoringService;
-    private final ClaudeRiskExplanationClient claudeRiskExplanationClient;
+    private final GroqRiskExplanationClient claudeRiskExplanationClient;
 
     public RiskAssessmentServiceImpl(CustomerRepository customerRepository,
                                      CustomerInstallmentRepository customerInstallmentRepository,
                                      InstallmentPlanRepository installmentPlanRepository,
                                      RiskScoringService riskScoringService,
-                                     ClaudeRiskExplanationClient claudeRiskExplanationClient) {
+                                     GroqRiskExplanationClient claudeRiskExplanationClient) {
         this.customerRepository = customerRepository;
         this.customerInstallmentRepository = customerInstallmentRepository;
         this.installmentPlanRepository = installmentPlanRepository;
