@@ -135,7 +135,7 @@ public class Customer {
     @Column(name = "CST_SUB_BIN", length = 20, nullable = false)
     private SubBin subBin;
 
-
+    @Lob
     @Column(name = "CST_IDENTITY_FILE")
     private String identityFile;
 

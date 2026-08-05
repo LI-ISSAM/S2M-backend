@@ -1,36 +1,56 @@
 spring:
   application:
-    name: bnpl-settings-service
+    name: ${MICROSERVICE_NAME:bnpl-settings-service}
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/bnpl_settings
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:1234}
-    driver-class-name: org.postgresql.Driver
-  ai:
-    ollama:
-      base-url: http://localhost:11434
-      chat:
-        model: llava:7b
-        options:
-          temperature: 0.3
-          num-predict: 512
+    driver-class-name: ${NXP_DATASOURCE_DRIVERCLASSNAME:oracle.jdbc.OracleDriver}
+    url: jdbc:${NXP_DATASOURCE_URL:${NXP_JDBC:oracle:thin}:${NXP_RDBMS_ORA:@}${NXP_DB_HOST:10.0.24.4}:${NXP_DB_PORT:1540}/${NXP_DB_NAME:FDE}}${NXP_RDBMS_ADDITIONAL:?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC}
+    username: ${NXP_DB_USER:NXP_BNPL_SETTINGS}
+    password: ${NXP_DB_PASSWORD:NXP_BNPL_SETTINGS}
+    hikari:
+      max-lifetime: ${NXP_HIKARI_MAX_LIFETIME:200000}
+      connection-timeout: ${NXP_HIKARI_CNX_TIMEOUT:5000}
+      validation-timeout: ${NXP_HIKARI_VALIDATION_TIMEOUT:2000}
+      maximum-pool-size: ${NXP_HIKARI_MAX_POOL_SIZE:40}
+      minimum-idle: ${NXP_HIKARI_MIN_IDLE:40}
+      idle-timeout: ${NXP_HIKARI_IDLE_TIMEOUT:300000}
+
+  sql:
+    init:
+      mode: ${DATASOURCE_INITIALISATION_MODE:never}
+
   jpa:
+    database: ${JPA_DATABASE:ORACLE}
+    database-platform: ${JPA_DATABASE_PLATFORM:org.hibernate.dialect.OracleDialect}
+    generate-ddl: ${JPA_GENERATE_DDL:false}
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
     properties:
       hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: ${JPA_HIBERNATE_PROP_DEFAULT_SCHEMA:NXP_BNPL_SETTINGS}
+        order_inserts: ${JPA_HIBERNATE_ORDER_INSERTS:true}
+        order_updates: ${JPA_HIBERNATE_ORDER_UPDATES:true}
+        jdbc:
+          batch_size: ${JPA_HIBERNATE_BATCH_SIZE:50}
+          batch_versioned_data: ${JPA_HIBERNATE_BATCH_VERSIONED_DATA:true}
 
   flyway:
-    enabled: true
+    enabled: ${FLYWAY_ENABLED:true}
     baseline-on-migrate: true
     locations: classpath:db/migration
 
+  ai:
+    ollama:
+      base-url: ${OLLAMA_URL:http://localhost:11434}
+      chat:
+        model: ${OLLAMA_MODEL:llava:7b}
+        options:
+          temperature: ${OLLAMA_TEMPERATURE:0.3}
+          num-predict: ${OLLAMA_NUM_PREDICT:512}
+
 server:
-  port: 8085
+  port: ${SERVER_PORT:8085}
   error:
     include-message: always
     include-binding-errors: always
@@ -39,6 +59,5 @@ server:
 groq:
   api:
     key: ${GROQ_API_KEY:}
-    model: llama-3.3-70b-versatile
-    url: https://api.groq.com/openai/v1/chat/completions
-
+    model: ${GROQ_MODEL:llama-3.3-70b-versatile}
+    url: ${GROQ_URL:https://api.groq.com/openai/v1/chat/completions}

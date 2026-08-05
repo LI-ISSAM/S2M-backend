@@ -133,13 +133,10 @@ public class CustomerService implements ICustomerService {
         existing.setNetIncome(newData.getNetIncome());
         existing.setRiskLevel(newData.getRiskLevel());
 
-        // 5. Account (valeurs par défaut)
         existing.setDefaultMxpAccount(newData.getDefaultMxpAccount());
         existing.setDefaultBankAccount(newData.getDefaultBankAccount());
 
-        // Tableaux : on remplace intégralement le contenu (orphanRemoval implicite
-        // via @ElementCollection, les anciennes lignes sont supprimées et
-        // recréées à chaque sauvegarde).
+
         existing.getAddresses().clear();
         existing.getAddresses().addAll(newData.getAddresses());
         existing.getAccounts().clear();

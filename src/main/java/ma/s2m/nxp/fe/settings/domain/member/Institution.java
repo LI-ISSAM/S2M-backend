@@ -53,7 +53,7 @@ public class Institution {
     @Column(name = "INST_STATUS", length = 20, nullable = false)
     private InstitutionStatus status;
 
-
+    @Lob
     @Column(name = "INST_LOGO")
     private String logo;
 
